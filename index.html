@@ -116,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -146,6 +146,285 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%EF%BC%8C%E6%98%AF%E5%90%A6%E5%8E%BB%E7%9A%84%E5%BD%BB%E5%BA%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="远山">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 远山">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%EF%BC%8C%E6%98%AF%E5%90%A6%E5%8E%BB%E7%9A%84%E5%BD%BB%E5%BA%95/" class="post-title-link" itemprop="url">数组去重，是否去的彻底？</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-31 09:34:02 / Modified: 09:34:33" itemprop="dateCreated datePublished" datetime="2022-07-31T09:34:02+08:00">2022-07-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>前端数组去重已经不是一个新鲜的话题了，关于去重的方式也是有很多姿势，本文介绍几种常用的去重方式</p>
+<ul>
+<li>for - of 循环去重</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3, 3, 4,1]</span><br><span class="line">function unique(arr) &#123;</span><br><span class="line">  let tempt = [], obj = &#123;&#125;</span><br><span class="line">  for (let item of arr) &#123;</span><br><span class="line">    if (!obj[item]) &#123;</span><br><span class="line">      obj[item] = item</span><br><span class="line">      tempt.push(item)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return tempt</span><br><span class="line">&#125;</span><br><span class="line">console.log(unique(arr)) // [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>ES6两种去重方式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 方式1</span><br><span class="line">Array.from(new Set(arr))</span><br><span class="line"></span><br><span class="line">// 方式2</span><br><span class="line">[...new Set(arr)]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>filter去重</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 该方式对数组循环了两次，不建议使用</span><br><span class="line">let re = arr.filter((item, index) =&gt; &#123;</span><br><span class="line">  return arr.indexOf(item) === index</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>reduce去重</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let newArr = arr.reduce((pre,cur)=&gt;&#123;</span><br><span class="line">    if(!pre.includes(cur))&#123;</span><br><span class="line">         pre.push(cur)</span><br><span class="line">    &#125;</span><br><span class="line">    return pre</span><br><span class="line">&#125;,[])</span><br></pre></td></tr></table></figure>
+
+<p>那么问题来了，**==如果目标数组存在相同的引用类型元素呢？==<strong>我们把arr换成</strong>[5, ‘1’, 5, 1, 2, {}, {}, /a/, /a/]**</p>
+<ul>
+<li><p>那么for-of返回值为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ 5, &#x27;1&#x27;, 2, &#123;&#125;, /a/ ]  // 未区分string类型的1和number类型的1</span><br></pre></td></tr></table></figure></li>
+<li><p>其余几种方式</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[5,  &#x27;1&#x27;, 2,   &#123;&#125;, &#123;&#125;, /a/, /a/] // 引用类型的元素未能去重（这里看怎么理解，两个值相同的引用类型不一定相同，两者所指向不一定相同）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由上可见，似乎是每种方式都有一些缺陷,需要一种完善的方式来对这些问题单独处理</p>
+</blockquote>
+<ul>
+<li>去重完整版<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.unique = function () &#123;</span><br><span class="line">  if (this) &#123;</span><br><span class="line">    let obj = &#123;&#125;, tempt = []</span><br><span class="line">    this.forEach(item =&gt; &#123;</span><br><span class="line">    // 通过类型 + 值来确定唯一性</span><br><span class="line">      if (!obj.hasOwnProperty(typeof item + item)) &#123;</span><br><span class="line">        obj[typeof item + item] = item</span><br><span class="line">        tempt.push(item)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return tempt </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let arr = [5, &#x27;1&#x27;, 5, 1, 2, &#123;&#125;, &#123;&#125;, /a/, /a/]</span><br><span class="line">console.log(arr.unique()) // [ 5, &#x27;1&#x27;, 1, 2, &#123;&#125;, /a/ ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的方法只是一种思路，其他法式还有待各位观众姥爷发掘，如有错误，欢迎大家留言指正</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="远山">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 远山">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">vue生命周期</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-31 09:31:50 / Modified: 09:32:38" itemprop="dateCreated datePublished" datetime="2022-07-31T09:31:50+08:00">2022-07-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>vue实例的一个完整生命周期包括创建、数据初始化、模版编译、挂载DOM、渲染、更新、渲染、卸载等一系列过程。</p>
+<h3 id="各个生命周期的作用"><a href="#各个生命周期的作用" class="headerlink" title="各个生命周期的作用"></a>各个生命周期的作用</h3><ul>
+<li>beforeCreate：刚刚经过new Vue({})创建了一个实例对象，只有一些默认的生命周期函数和事件，data和methods还未初始化</li>
+<li>created：data和methods初始化完成，可以使用data中的数据和methods中的方法。</li>
+<li>beforeMount：template中标签、指令编译为一个字符串储存在内存中</li>
+<li>mounted：将编译好的模版替换到浏览器页面中，实例初始化完成。</li>
+<li>beforedUpdate：data中数据已经更新，但是页面中显示的还是久的数据，尚未同步</li>
+<li>updated：根据data的更新，重新渲染DOM树，并渲染到页面，完成从data(Model层) -&gt; view(视图层)的更新</li>
+<li>beforeDestroy：实例上的所有option正常使用</li>
+<li>destroyed：实例销毁</li>
+</ul>
+<p><img src="http://note.youdao.com/yws/res/7929/CC328F3A6E5942F6960D636CAADE0882" alt="image"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/canvas%E7%94%BB%E5%B8%83%E6%98%AF%E5%90%A6%E7%A9%BA%E7%99%BD%E5%88%A4%E6%96%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="远山">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 远山">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/canvas%E7%94%BB%E5%B8%83%E6%98%AF%E5%90%A6%E7%A9%BA%E7%99%BD%E5%88%A4%E6%96%AD/" class="post-title-link" itemprop="url">canvas画布是否空白判断</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-07-31 09:29:52 / Modified: 09:30:53" itemprop="dateCreated datePublished" datetime="2022-07-31T09:29:52+08:00">2022-07-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>当我们通过canvas创建画布,即使未做任何操作，未画一笔，我们也能成功导出base64。很多场景下我们需要判断画布是否为空，这个时候可以初始化一个模版来比较，网上的方法也有多：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//验证canvas画布是否为空</span><br><span class="line">function isCanvasBlank(canvas) &#123;</span><br><span class="line">    var blank = document.createElement(&#x27;canvas&#x27;);//系统获取一个空canvas对象</span><br><span class="line">    blank.width = canvas.width;</span><br><span class="line">    blank.height = canvas.height;</span><br><span class="line">    return canvas.toDataURL() == blank.toDataURL();//比较值相等则为空</span><br><span class="line">&#125;</span><br><span class="line">//调用</span><br><span class="line">//非空验证</span><br><span class="line">function checkEmpty() &#123;</span><br><span class="line">    var c=document.getElementById(&quot;canvas&quot;); // 获取html的canvas对象</span><br><span class="line">    if(isCanvasBlank(c))&#123;</span><br><span class="line">        alert(&quot;请绘制&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>但往往我们创建画布，并不只是简单的画几条线，可能有很多配置，比如线宽、线速、填充色，功能越复杂配置就越复杂，那么就需要在<strong>isCanvasBlank</strong>方法中全部初始化出来，那就显得繁琐了。</p>
+<pre><code>因此我们可以在页面挂载的时候保存一份初始化数据（vue开发）。
+</code></pre>
+<ul>
+<li>在mounted周期里获取初始的Base64，一定是要在mounted里面，created周期canvas还未挂载，无法获取到实例；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mounted () &#123;</span><br><span class="line">    this.toDataURL = this.$refs.SignCanvas.canvas.toDataURL()</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在你需要做判断的时候再次获取当前canvas导出的Base64与mounted中保存的作比较：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (this.toDataURL === this.$refs.SignCanvas.canvas.toDataURL()) &#123;</span><br><span class="line">        this.$toast(&#x27;请先签名&#x27;)</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于toDataURL属性，你可以参考MDN</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTMLCanvasElement.toDataURL() 方法返回一个包含图片展示的 data URI 。可以使用 type 参数其类型，默认为 PNG 格式。图片的分辨率为96dpi。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -240,88 +519,6 @@
 <blockquote>
 <p>本文只是叙述了一种比较简易的方式，其实关于echarts转图片或者base64，有echarts自带的api,以及后端配置xml时也有其他方式。后续会补充一些更加简易，正规的方式。如有错误，还望指正，如有不懂，可评论留言，小编一定尽力解答。</p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/29/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="远山">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 远山">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/29/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-07-29 23:22:16 / Modified: 23:20:32" itemprop="dateCreated datePublished" datetime="2022-07-29T23:22:16+08:00">2022-07-29</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
